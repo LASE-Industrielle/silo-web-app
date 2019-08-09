@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 let styles = {
   heading: {
     fontSize: 24,
+    fontWeight:'400',
     color: '#AAA9A9',
     width: '100%',
     // height:'10%',
@@ -18,7 +19,9 @@ let styles = {
   },
   input: {
     width: '95%',
-    height: '25px',
+    fontWeight:'500',
+    color:'#656565',
+    height: '30px',
     display: 'flex',
     borderStyle: 'solid',
     borderRadius: 5,
@@ -29,6 +32,7 @@ let styles = {
   },
   label: {
     fontSize: 13,
+    fontWeight:'400',
     width: '100%',
     display: 'flex',
     textAlign: 'left',
@@ -38,8 +42,9 @@ let styles = {
   button: {
     display: 'flex',
     width: '100%',
-    height: '25px',
+    height: '30px',
     fontSize: '12px',
+    fontWeight:'500',
     marginTop: 20,
     backgroundColor: '#02A04E',
     // padding: 15,
@@ -50,14 +55,15 @@ let styles = {
     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)"
   },
   footer: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#AAA9A9',
     fontStyle: 'italic',
     height: 10,
     display: 'flex',
   },
   footerLink: {
-    fontSize: 13,
+    fontSize: 12,
+    fontWeight:'400',
     color: '#02A04E',
     height: 10,
     marginLeft: 5,

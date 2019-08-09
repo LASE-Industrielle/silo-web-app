@@ -3,9 +3,10 @@ import AuthService from "../../services/AuthService";
 import {useStateValue} from "../../context/StateContext";
 import LoginForm from "./LoginForm";
 
-let styles = {
+const styles = {
   fullDimensions: {
     position: 'absolute',
+    fontFamily: 'Rubik',
     top: 0,
     left: 0,
     right: 0,
@@ -48,7 +49,8 @@ let styles = {
     textAlign: 'center',
     fontSize: 12,
     lineHeight: 26,
-    letterSpacing: 16
+    letterSpacing: 16,
+    fontWeight:'300'
   },
   formContainer: {
     width: '40%',
