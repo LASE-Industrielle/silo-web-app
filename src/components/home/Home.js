@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import AnalyticsWidget from '../elements/AnalyticsWidget'
 import SiloStatusWidget from '../elements/SiloStatusWidget'
 import SiloSearchWidget from '../elements/SiloSearchWidget'
@@ -70,21 +70,25 @@ const data = [
 
 const Home = (props) => {
 
+  const [selectedSilo,setSelectedSilo] = useState(null)
+
   return (
     <div style={styles.container}>
       <div style={{ width: '80%' }}>
         <Header/>
         <div style={styles.contentContainer}>
-          <SiloSearchWidget data={data}/>
+          <SiloSearchWidget data={data} selectedSiloId={selectedSilo && selectedSilo.id}setSelectedSilo={setSelectedSilo}/>
 
           <div style={styles.widgetsContainer}>
-            <SiloStatusWidget name={'Solingen'}
-                              address={'Walter-Horn-Weg 1, Solingen'}
-                              siloCapacityPercentage={36}/>
-            <div style={styles.detailWidgetsContainer}>
-              <AnalyticsWidget/>
-              <SpecificationWidget/>
-            </div>
+            {selectedSilo &&  (
+              <>
+                <SiloStatusWidget silos={selectedSilo}/>
+                <div style={styles.detailWidgetsContainer}>
+                  <AnalyticsWidget silos={selectedSilo}/>
+                  <SpecificationWidget silos={selectedSilo}/>
+                </div>
+              </>
+            )}
           </div>
 
         </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import AnalyticsListItem from './AnalyticsListItem'
 import { AnalyticsIcon } from '../../icons/AnalyticsIcon'
 
-const AnalyticsWidget = () => {
+const AnalyticsWidget = ({ silos }) => {
   return (
     <div style={{
       display: 'flex',
@@ -47,7 +47,9 @@ const AnalyticsWidget = () => {
             fontSize: 16,
             fontWeight: 'bold',
           }}
-          >1602 / 4500 <span style={{ color: '#BEB9B9' }}>kg</span>
+          >{silos.capacity && silos.percentage &&
+          Math.round((silos.percentage * silos.capacity) / 100)} / {silos &&
+          silos.capacity} <span style={{ color: '#BEB9B9' }}>kg</span>
           </div>
         </div>
       </div>
@@ -64,11 +66,10 @@ const AnalyticsWidget = () => {
         </div>
 
       </div>
-
-      <AnalyticsListItem/>
-      <AnalyticsListItem/>
-      <AnalyticsListItem isLast={true}/>
-
+      {Object.entries(silos.values_by_day).
+        map(({ 0: date, 1: value }) => <AnalyticsListItem key={date} date={date}
+                                                          value={value}/>,
+        )}
       <div style={{
         flex: 1,
         display: 'flex',
@@ -86,7 +87,8 @@ const AnalyticsWidget = () => {
           color: '#fff',
           fontSize: 14,
           boxShadow: '0px 3px 6px rgba(0,0,0,0.08)',
-        }}><AnalyticsIcon fill={'#fff'}/><span style={{marginLeft:10}}>ANALYTICS</span>
+        }}><AnalyticsIcon fill={'#fff'}/><span
+          style={{ marginLeft: 10 }}>ANALYTICS</span>
         </div>
       </div>
 

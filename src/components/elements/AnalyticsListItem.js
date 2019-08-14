@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AnalyticsListItem = ({isLast=false}) => {
+const AnalyticsListItem = ({isLast=false, date, value}) => {
   return (
     <div style={{
       display:'flex',
@@ -27,9 +27,9 @@ const AnalyticsListItem = ({isLast=false}) => {
             borderRadius:'50%',
             marginRight:12
           }}/>
-          <div style={{color:'#262626'}}>36%</div>
+          <div style={{color:'#262626'}}>{value}%</div>
         </div>
-        <div style={{color:'#BEB9B9',fontSize:12}}>Friday, May 24</div>
+        <div style={{color:'#BEB9B9',fontSize:12}}>{date}</div>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react'
 import { ArrowDownIcon } from '../../icons/ArrowDownIcon'
 import { ArrowUpIcon } from '../../icons/ArrowUpIcon'
 
-const SiloStatusWidget = ({siloCapacityPercentage=0,name='',address=''}) => {
+const SiloStatusWidget = ({silos}) => {
   return (
     <div style={{
       flex: 1,
@@ -22,10 +22,10 @@ const SiloStatusWidget = ({siloCapacityPercentage=0,name='',address=''}) => {
             fontSize: 16,
             fontWeight: 'bold',
             marginBottom: 6,
-          }}>{name}
+          }}>{silos && silos.name}
           </div>
           <div style={{ fontSize: 14, marginBottom: 32 }}>
-            {address}
+            {silos && silos.location}
           </div>
         </div>
 
@@ -39,7 +39,7 @@ const SiloStatusWidget = ({siloCapacityPercentage=0,name='',address=''}) => {
             fontSize: 16,
             fontWeight: 'bold',
             marginBottom: 6,
-          }}>{siloCapacityPercentage}% full
+          }}>{silos &&  silos.percentage}% full
           </div>
           <div style={{ fontSize: 14, marginBottom: 32,fontWeight:'bold' }}>
             <ArrowDownIcon fill={'#96CEB7'} height={10}/>0 <ArrowUpIcon fill={'#96CEB7'} height={10}/>100
@@ -109,7 +109,7 @@ const SiloStatusWidget = ({siloCapacityPercentage=0,name='',address=''}) => {
           }
           <div style={{
             height: 54,
-            width: `${siloCapacityPercentage}%`,
+            width: `${silos && silos.percentage}%`,
             borderRadius: 10,
             backgroundColor: '#3A7F78',
           }}/>

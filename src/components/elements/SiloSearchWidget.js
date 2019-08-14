@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import SiloListItem from './SiloListItem'
 import { SearchIcon } from '../../icons/SearchIcon'
 
-const SiloSearchWidget = ({ data = [] }) => {
+const SiloSearchWidget = ({ data = [], selectedSiloId, setSelectedSilo }) => {
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -56,7 +56,9 @@ const SiloSearchWidget = ({ data = [] }) => {
         {data.filter(value => value.name.toLowerCase().
             includes(searchQuery.toLowerCase()) ||
           value.location.toLowerCase().includes(searchQuery.toLowerCase())).
-          map(silo => <SiloListItem key={silo.id} silo={silo}/>)}
+          map(silo => <div key={silo.id} onClick={() => setSelectedSilo(silo)}>
+            <SiloListItem
+              isHighlighted={selectedSiloId === silo.id} silo={silo}/></div>)}
       </div>
     </div>
   )

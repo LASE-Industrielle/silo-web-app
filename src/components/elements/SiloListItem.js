@@ -2,12 +2,13 @@ import React from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
-const SiloListItem = ({ silo }) => {
+const SiloListItem = ({ silo, isHighlighted }) => {
   return (
     <div style={{
       display: 'flex',
       padding: '10px 14px',
       borderBottom: '1px #E9E9E9 solid',
+      backgroundColor: isHighlighted ? '#F8F8F8': 'white'
     }}>
       <div style={{
         display: 'flex',

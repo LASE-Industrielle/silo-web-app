@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SpecificationWidget = () => {
+const SpecificationWidget = ({ silos }) => {
   return (
     <div style={{
       flex: 1,
@@ -29,7 +29,7 @@ const SpecificationWidget = () => {
             color: '#83D0A9',
             fontSize: 26,
             fontWeight: 'bold',
-          }}>10<span
+          }}>{silos && silos.width}<span
             style={{
               fontWeight: 'normal',
               fontSize: 16,
@@ -47,7 +47,7 @@ const SpecificationWidget = () => {
             color: '#83D0A9',
             fontSize: 26,
             fontWeight: 'bold',
-          }}>60<span
+          }}>{silos && silos.height}<span
             style={{
               fontWeight: 'normal',
               fontSize: 16,
@@ -65,7 +65,7 @@ const SpecificationWidget = () => {
             color: '#83D0A9',
             fontSize: 26,
             fontWeight: 'bold',
-          }}>450<span
+          }}>{silos && silos.capacity}<span
             style={{
               fontWeight: 'normal',
               fontSize: 16,
@@ -86,7 +86,7 @@ const SpecificationWidget = () => {
             style={{ color: '#BEB9B9', fontSize: 14, marginBottom: 8 }}>Location
           </div>
           <div
-            style={{ color: '#898989', fontSize: 14 }}>Walter-Horn
+            style={{ color: '#898989', fontSize: 14 }}>{silos && silos.location}
           </div>
         </div>
         <div style={{ borderBottom: '1px #E8E6EA solid', padding: '10px 0' }}>
@@ -95,14 +95,16 @@ const SpecificationWidget = () => {
             Number
           </div>
           <div
-            style={{ color: '#898989', fontSize: 14 }}>Sensor#f525
+            style={{ color: '#898989', fontSize: 14 }}>{silos && silos.sensor &&
+          silos.sensor.serial_number}
           </div>
         </div>
         <div style={{ paddingTop: 10 }}>
           <div
             style={{ color: '#BEB9B9', fontSize: 14, marginBottom: 8 }}>Type
           </div>
-          <div style={{ color: '#898989', fontSize: 14 }}>Laser</div>
+          <div style={{ color: '#898989', fontSize: 14 }}>{silos &&
+          silos.sensor && silos.sensor.type}</div>
         </div>
 
       </div>
