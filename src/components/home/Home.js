@@ -1,166 +1,90 @@
 import React from 'react'
-import SiloListItem from '../elements/SiloListItem'
+import AnalyticsWidget from '../elements/AnalyticsWidget'
+import SiloStatusWidget from '../elements/SiloStatusWidget'
+import SiloSearchWidget from '../elements/SiloSearchWidget'
+import SpecificationWidget from '../elements/SpecificationWidget'
+import Header from '../elements/Header'
+
+const data = [
+  {
+    "id": 1,
+    "sensor": {
+      "id": 1,
+      "serial_number": "sensor#111",
+      "type": "LASER"
+    },
+    "values_by_day": {
+      "2019-08-31": 34.0,
+      "2019-08-30": 28.0,
+      "2019-08-29": 28.0
+    },
+    "last_update": "2 w, 3 d ago",
+    "percentage": 84.0,
+    "name": "Solingen",
+    "height": 60.0,
+    "width": 10.0,
+    "capacity": 4500.0,
+    "location": "Walter-Horn-Weg 1, Solingen"
+  },
+  {
+    "id": 2,
+    "sensor": {
+      "id": 2,
+      "serial_number": "sensor#222",
+      "type": "LASER"
+    },
+    "values_by_day": {
+      "2019-08-05": 63.0,
+      "2019-07-22": 85.0,
+      "2019-07-20": 34.0
+    },
+    "last_update": "1 w, 1 d ago",
+    "percentage": 40.0,
+    "name": "Berlin",
+    "height": 50.0,
+    "width": 15.0,
+    "capacity": 3000.0,
+    "location": "Gabriel-Max-Straße 4, 10245 Berlin, Germany"
+  },
+  {
+    "id": 3,
+    "sensor": {
+      "id": 3,
+      "serial_number": "TESTING SENSOR",
+      "type": "LASER"
+    },
+    "values_by_day": {
+      "2019-08-25": 100.0,
+      "2019-08-22": 99.0,
+      "2019-08-15": 98.0
+    },
+    "last_update": "1 w, 5 d ago",
+    "percentage": 100.0,
+    "name": "TEST SILOS",
+    "height": 0.0,
+    "width": 0.0,
+    "capacity": 6000.0,
+    "location": "Testing location"
+  }
+]
 
 const Home = (props) => {
 
   return (
-    <div style={{
-      display:'flex',
-      flex:1,
-      alignSelf:'stretch',
-      alignItems:'center',
-      flexDirection:'column',
-    }}>
+    <div style={styles.container}>
+      <div style={{ width: '80%' }}>
+        <Header/>
+        <div style={styles.contentContainer}>
+          <SiloSearchWidget data={data}/>
 
-      <div
-        style={{
-          width:'80%',
-          }}>
-
-      <div style={{
-        display:'flex',
-        flex:1,
-        backgroundColor:'#FFF',
-        alignSelf:'stretch',
-        flexDirection:'row',
-        padding: '20px 120px',
-        borderBottomLeftRadius: 20,
-        marginBottom: 20,
-        boxShadow: '0px 3px 6px rgba(0,0,0,0.08)'
-      }}>
-      <div
-        style={{ flex:1 }}>
-        HEADER
-      </div>
-        <div style={{
-        display:'flex',
-          flex:1,
-          justifyContent:'flex-end'
-        }}>
-          notifications, profile
-        </div>
-      </div>
-
-        <div style={{
-          display:'flex',
-          flex:1,
-          flexDirection:'row'
-        }}>
-          <div style={{
-            backgroundColor:'#fff',
-            flex:1,
-            minWidth:400,
-            borderRadius:6,
-            margin: '0 20px 30px 100px',
-            boxShadow: '0px 3px 6px rgba(0,0,0,0.08)',
-          }}>
-            <div
-            style={{
-              fontSize: 18,
-              color: '#898989',
-              fontWeight:'bold',
-              padding:24,
-              borderBottom: '1px #E9E9E9 solid'}}>
-              Silos
+          <div style={styles.widgetsContainer}>
+            <SiloStatusWidget name={'Solingen'}
+                              address={'Walter-Horn-Weg 1, Solingen'}
+                              siloCapacityPercentage={36}/>
+            <div style={styles.detailWidgetsContainer}>
+              <AnalyticsWidget/>
+              <SpecificationWidget/>
             </div>
-
-            <div style={{
-              padding: 10,
-              margin: 10,
-              flex: 1,
-              display: 'flex',
-              borderRadius:50,
-              border:'1px #cfcfcf solid',
-            }}>
-              <div> --(o) </div>
-              <input
-                style={{
-                  flex: 1,
-                  fontSize: 12,
-                  border: '0px',
-                  outlineWidth: 0,
-                  paddingLeft:10
-                }}
-                placeholder={'search...'} />
-            </div>
-
-            <div style={{
-              overflow:'auto',
-              height:700,
-              padding:10
-            }}>
-          <SiloListItem/>
-          <SiloListItem/>
-          <SiloListItem/>
-          <SiloListItem/>
-            </div>
-          </div>
-
-          <div style={{flex:3,              margin:'0 100px 20px 0',}}>
-
-            <div style={{
-              flex:1,
-              height: 236,
-              borderRadius:6,
-              background: 'linear-gradient(#6CC799, #3A7F78)',
-              padding: '28px 26px',
-              color:'#fff',
-              marginBottom:20,
-              boxShadow: '0px 3px 6px rgba(0,0,0,0.08)',
-            }}>
-              <div style={{display:'flex'}}>
-                <div style={{flex:1}}>
-                  <div style={{
-                    fontSize:16,
-                    fontWeight:'bold',
-                    marginBottom:6}}>Solingen</div>
-                  <div style={{ fontSize:14,marginBottom:32}}>
-                    Walter-Horn-Weg 1, Solingen
-                  </div>
-                </div>
-
-                <div style={{
-                  display:'flex',
-                  flexDirection:'column',
-                  flex:1,
-                  alignItems:'flex-end'}}>
-                  <div style={{
-                    fontSize:16,
-                    fontWeight:'bold',
-                    marginBottom:6}}>36% full</div>
-                  <div style={{ fontSize:14,marginBottom:32}}>
-                    0" 100"
-                  </div>
-                </div>
-              </div>
-
-              <div style={{display:'flex',flex:1,}}>
-                Meter
-              </div>
-
-            </div>
-            <div style={{display:'flex',flex:1, height:400}}>
-              <div style={{
-                flex:1,
-                borderRadius:6,
-                marginRight:20,
-                backgroundColor:'#fff',
-                boxShadow: '0px 3px 6px rgba(0,0,0,0.08)',
-                padding: '36px 30px 32px 30px'
-              }}>
-                donji left
-              </div>
-              <div style={{
-                flex:1,
-                borderRadius:6,
-                backgroundColor:'#fff',
-                boxShadow: '0px 3px 6px rgba(0,0,0,0.08)',
-                padding: '36px 30px 32px 30px'
-              }}>
-                donji right
-              </div>
-            </div>
-
           </div>
 
         </div>
@@ -169,4 +93,26 @@ const Home = (props) => {
   )
 }
 
-export default Home;
+const styles = {
+  container: {
+    display: 'flex',
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  contentContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  widgetsContainer: {
+    flex: 3,
+    margin: '0 100px 20px 0',
+  },
+  detailWidgetsContainer: {
+    display: 'flex',
+    flex: 1,
+    height: 400 }
+}
+export default Home
