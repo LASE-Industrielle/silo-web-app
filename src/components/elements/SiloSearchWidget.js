@@ -12,7 +12,7 @@ const SiloSearchWidget = ({ data = [], selectedSiloId, setSelectedSilo }) => {
       flex: 1,
       minWidth: 400,
       borderRadius: 6,
-      margin: '0 20px 30px 100px',
+      margin: '0 20px 30px 50px',
       boxShadow: '0px 3px 6px rgba(0,0,0,0.08)',
     }}>
       <div
