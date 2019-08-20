@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Header from '../elements/Header'
 import SiloSearchWidget from '../elements/SiloSearchWidget'
 import SiloGraphWidget from '../elements/SiloGraphWidget'
+import GraphDataWidget from '../elements/GraphDataWidget'
 
 const data = [
   {
@@ -39,6 +40,7 @@ const Graph = () => {
 
           <div style={styles.widgetsContainer}>
             <SiloGraphWidget silos={data[0]}/>
+            <GraphDataWidget/>
 
           </div>
 

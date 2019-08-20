@@ -50,18 +50,17 @@ const SiloGraphWidget = ({ silos }) => {
             singleValue: () => ({ color: '#fff', fontSize: 12 }),
             option: (base, state) => ({
               ...base,
-              fontSize:12,
+              fontSize: 12,
               color: state.isSelected ? '#14A95C' : '#58A08C',
               backgroundColor: state.isSelected ? '#E2F4EB' : '#fff',
               fontWeight: state.isSelected ? 'medium' : 'normal',
 
               '&:hover': {
-                color:'#58A08C',
-                backgroundColor:'#E2F4EB'
+                color: '#58A08C',
+                backgroundColor: '#E2F4EB',
               },
 
             }),
-
             dropdownIndicator: (base) => ({
               ...base, color: '#fff', '&:hover': {
                 color: '#58A08C',
