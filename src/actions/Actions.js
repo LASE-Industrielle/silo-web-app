@@ -1,14 +1,8 @@
-
-
 const AUTH_START = 'AUTH_START';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const AUTH_ERROR = 'AUTH_ERROR';
-
-
 const SET_USERNAME = 'SET_USERNAME';
-
 const LOGOUT_USER = 'LOGOUT_USER';
-
 
 export {
   AUTH_START,
