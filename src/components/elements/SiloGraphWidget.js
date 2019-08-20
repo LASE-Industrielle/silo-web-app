@@ -1,6 +1,15 @@
 import React from 'react'
+import { VictoryAxis, VictoryChart, VictoryLine } from 'victory'
+import Select from 'react-select'
 
-const SiloStatusWidget = ({ silos }) => {
+const options = [
+  { value: 'hour', label: 'Date' },
+  { value: 'day', label: 'Day' },
+  { value: 'week', label: 'Week' },
+  { value: 'month', label: 'Month' },
+]
+
+const SiloGraphWidget = ({ silos }) => {
   return (
     <div
       style={{
@@ -22,6 +31,8 @@ const SiloStatusWidget = ({ silos }) => {
           flexDirection: 'column',
           width: 250,
         }}>
+
+
         <div style={{
           color: '#fff',
           fontSize: 18,
@@ -29,8 +40,43 @@ const SiloStatusWidget = ({ silos }) => {
           marginBottom: 42,
         }}><span style={{ width: 24, marginRight: 8 }}>&lt;</span> Analytics
         </div>
-        <div style={styles.dateTimeInput}>Select Period
-        </div>
+        <div><Select
+
+          styles={{
+            control: () => ({
+              borderRadius: 50,
+              border: '1px #fff solid', flex: 1, height: 38, display: 'flex',
+            }),
+            singleValue: () => ({ color: '#fff', fontSize: 12 }),
+            option: (base, state) => ({
+              ...base,
+              fontSize:12,
+              color: state.isSelected ? '#14A95C' : '#58A08C',
+              backgroundColor: state.isSelected ? '#E2F4EB' : '#fff',
+              fontWeight: state.isSelected ? 'medium' : 'normal',
+
+              '&:hover': {
+                color:'#58A08C',
+                backgroundColor:'#E2F4EB'
+              },
+
+            }),
+
+            dropdownIndicator: (base) => ({
+              ...base, color: '#fff', '&:hover': {
+                color: '#58A08C',
+              },
+            }),
+            indicatorSeparator: (base) => ({
+              ...base,
+              backgroundColor: '#fff',
+            }),
+            valueContainer: (base) => ({ ...base, marginLeft: 6 }),
+          }}
+
+          options={options}
+          defaultValue={options[0]}
+        /></div>
 
 
         <div style={{ marginTop: 20 }}>
@@ -73,16 +119,71 @@ const SiloStatusWidget = ({ silos }) => {
         </div>
       </div>
       <div style={{
-        display:'flex',
+        display: 'flex',
         marginLeft: 26,
         flex: 1,
         width: 462,
         height: 394,
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        color:'#fff'
-      }}><div>/\/^ Chart goes here</div>
+        color: '#fff',
+      }}>
+        <div>
+
+          <VictoryChart
+
+            width={472}
+            height={394}
+
+          >
+
+            <VictoryAxis
+              style={{
+                axis: { stroke: 'none' },
+                grid: {
+                  stroke: '#58A08C', strokeDasharray: '5,5',
+                  strokeWidth: 0.5,
+                  fill: '#fff',
+                },
+                tickLabels: { fill: '#fff' },
+              }}
+            />
+            <VictoryAxis
+              dependentAxis
+              style={{
+                axis: {
+                  fill: 'transparent',
+                  stroke: 'none',
+                  strokeWidth: 1,
+                },
+                axisLabel: { fontSize: 50, padding: 30 },
+                grid: {
+                  stroke: '#58A08C', strokeDasharray: '5,5',
+                  strokeWidth: 0.5,
+                  fill: '#fff',
+                },
+                tickLabels: { fill: '#fff' },
+              }}
+            />
+            <VictoryLine
+              interpolation="natural"
+              style={{
+                data: { stroke: '#fff' },
+                parent: { border: '5px solid #fff' },
+
+              }}
+              data={[
+                { x: 1, y: 2 },
+                { x: 2, y: 3 },
+                { x: 3, y: 5 },
+                { x: 4, y: 4 },
+                { x: 5, y: 7 },
+              ]}
+            />
+          </VictoryChart>
+
+        </div>
       </div>
     </div>
   )
@@ -93,8 +194,8 @@ const styles = {
     borderRadius: 50,
     border: '1px #fff solid',
     height: 18,
-    marginLeft: 4,
     padding: 10,
+    marginLeft: 4,
     fontSize: 12,
     color: '#fff',
 
@@ -114,4 +215,4 @@ const styles = {
   },
 }
 
-export default SiloStatusWidget
+export default SiloGraphWidget
