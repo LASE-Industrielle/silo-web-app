@@ -1,48 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useStore } from "../../context/StateContext";
 import { NotificationIcon } from "../../icons/NotificationIcon";
 import { LogoIcon } from "../../icons/LogoIcon";
 import { ProfileIcon } from "../../icons/ProfileIcon";
 import NotificationsWidget from "./NotificationsWidget";
 import ProfileWidget from "./ProfileWidget";
-
-const notifications = {
-  data: [
-    {
-      title: "Silo: Solingen",
-      body:
-        "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus",
-      time: "19:01",
-      read: false
-    },
-    {
-      title: "Silo: Berlin",
-      body:
-        "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae",
-      time: "17:34",
-      read: false
-    },
-    {
-      title: "Update",
-      body:
-        "quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit",
-      time: "08:33",
-      read: false
-    }
-  ]
-};
+import getNotifications from "../../services/NotificationsService";
 
 const Header = ({ history }) => {
+  const [{ notifications }, dispatch] = useStore();
+
   const [unreadCount, setUnreadCount] = useState(0);
   const [readCount, setReadCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
-  // only one dropdown can be opened at the same time
   useEffect(() => {
-    setUnreadCount(notifications.data.filter(x => x.read === false).length);
-    setReadCount(notifications.data.filter(x => x.read === true).length);
-  }, []);
+    getNotifications(dispatch);
+  }, [dispatch]);
 
+  useEffect(() => {
+    if (notifications !== undefined) {
+      setUnreadCount(notifications.data.filter(x => x.read === false).length);
+      setReadCount(notifications.data.filter(x => x.read === true).length);
+    }
+  }, [notifications]);
+
+  // only one dropdown can be opened at the same time
   useEffect(() => {
     if (showNotifications) {
       setShowProfile(false);

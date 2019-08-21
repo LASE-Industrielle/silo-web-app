@@ -1,7 +1,38 @@
 import React, { useEffect } from "react";
 import AuthService from "../../services/AuthService";
-import { useStateValue } from "../../context/StateContext";
+import { useStore } from "../../context/StateContext";
 import LoginForm from "./LoginForm";
+
+const Login = ({ history }) => {
+  const [{ auth }, dispatch] = useStore();
+
+  useEffect(() => {
+    if (auth.token !== "" && auth.token !== undefined) {
+      localStorage.setItem("token", auth.token);
+      history.push("/home");
+    }
+  }, [auth.token, history]);
+
+  const login = (username, password) => {
+    AuthService.authCall(dispatch, username, password);
+  };
+
+  return (
+    <div style={styles.fullDimensions}>
+      <div style={styles.centerContent}>
+        <div style={styles.gradientContainer}>
+          <div style={styles.logoContainer}>
+            <p style={styles.logoText}>SILO</p>
+          </div>
+        </div>
+        <div style={styles.formContainer}>
+          <LoginForm login={login} />
+        </div>
+        <div style={styles.gradientRight} />
+      </div>
+    </div>
+  );
+};
 
 const styles = {
   fullDimensions: {
@@ -75,37 +106,6 @@ const styles = {
     borderBottomRightRadius: 12,
     boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.12)"
   }
-};
-
-const Login = ({ history }) => {
-  const [{ auth }, dispatch] = useStateValue();
-
-  useEffect(() => {
-    if (auth.token !== "" && auth.token !== undefined) {
-      localStorage.setItem("token", auth.token);
-      history.push("/home");
-    }
-  }, [auth.token, history]);
-
-  const login = (username, password) => {
-    AuthService.authCall(dispatch, username, password);
-  };
-
-  return (
-    <div style={styles.fullDimensions}>
-      <div style={styles.centerContent}>
-        <div style={styles.gradientContainer}>
-          <div style={styles.logoContainer}>
-            <p style={styles.logoText}>SILO</p>
-          </div>
-        </div>
-        <div style={styles.formContainer}>
-          <LoginForm login={login} />
-        </div>
-        <div style={styles.gradientRight} />
-      </div>
-    </div>
-  );
 };
 
 export default Login;
