@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { VictoryAxis, VictoryChart, VictoryLine } from 'victory'
 import Select from 'react-select'
+import DatePicker from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import './DateTimePicker.css'
 
 const options = [
   { value: 'hour', label: 'Date' },
@@ -19,7 +23,36 @@ const chartDummyData = [
   { x: 7, y: 7 },
 ]
 
+const RoundDatePicker = ({ date, setDate }) => {
+  return (<DatePicker
+    selected={date}
+    onChange={e => setDate(e)}
+    dateFormat="dd.MM.yyyy."
+    className="dateTimePicker"
+  />)
+}
+
+const RoundDateTimePicker = ({ time, setTime }) => {
+  return (<DatePicker
+    className="dateTimePicker"
+    showTimeSelect
+    showTimeSelectOnly
+    timeIntervals={15}
+    selected={time}
+    onChange={e => setTime(e)}
+    timeFormat="HH:mm"
+    dateFormat="HH:mm"
+  />)
+}
+
 const SiloGraphWidget = ({ silos }) => {
+
+  const [startDate, setStartDate] = useState(new Date())
+  const [startTime, setStartTime] = useState(new Date())
+
+  const [endDate, setEndDate] = useState(new Date())
+  const [endTime, setEndTime] = useState(new Date())
+
   return (
     <div
       style={styles.graphWidgetContainer}>
@@ -28,6 +61,8 @@ const SiloGraphWidget = ({ silos }) => {
         <div style={styles.graphWidgetHeader}><span
           style={styles.backArrow}>&lt;</span> Analytics
         </div>
+
+
         <div><Select
           styles={styles.reactSelect}
           options={options}
@@ -38,21 +73,17 @@ const SiloGraphWidget = ({ silos }) => {
             Select start date & time
           </div>
           <div style={styles.dateTimePickerWrapper}>
-            <div style={{ ...styles.selectPeriodDropdown, flex: 1 }}>Date
-            </div>
-            <div style={{ ...styles.selectPeriodDropdown, flex: 1 }}>Time
-            </div>
+              <RoundDatePicker date={startDate} setDate={setStartDate}/>
+              <RoundDateTimePicker time={startTime} setTime={setStartTime}/>
           </div>
 
           <div style={{ marginTop: 20 }}>
-            < div style={styles.dateTimePickerLabel}>
+            <div style={styles.dateTimePickerLabel}>
               Select end date & time
             </div>
             <div style={styles.dateTimePickerWrapper}>
-              <div style={{ ...styles.selectPeriodDropdown, flex: 1 }}>20. July
-              </div>
-              <div style={{ ...styles.selectPeriodDropdown, flex: 1 }}>14:00
-              </div>
+              <RoundDatePicker date={endDate} setDate={setEndDate}/>
+              <RoundDateTimePicker time={endTime} setTime={setEndTime}/>
             </div>
           </div>
         </div>
@@ -160,23 +191,27 @@ const styles = {
     fontSize: 12,
     marginBottom: 10,
   },
-  dateTimePickerWrapper: { display: 'flex', justifyContent: 'space-between' },
+  dateTimePickerWrapper: { display: 'flex' },
 
   reactSelect: {
     control: () => ({
       borderRadius: 50,
-      border: '1px #fff solid', flex: 1, height: 38, display: 'flex',
+      border: '1px #fff solid',
+      flex: 1,
+      height: 38,
+      display: 'flex',
+      cursor: 'pointer',
     }),
     singleValue: () => ({ color: '#fff', fontSize: 12 }),
     option: (base, state) => ({
       ...base,
       fontSize: 12,
-      color: state.isSelected ? '#14A95C' : '#58A08C',
-      backgroundColor: state.isSelected ? '#E2F4EB' : '#fff',
-      fontWeight: state.isSelected ? 'medium' : 'normal',
+      color: state.isSelected ? '#6CC799' : '#c9c9c9',
+      backgroundColor: state.isSelected ? '#F5F5F5' : '#fff',
+      fontWeight: state.isSelected ? 'bold' : 'normal',
 
       '&:hover': {
-        color: '#58A08C',
+        color: '#6CC799',
         backgroundColor: '#E2F4EB',
       },
 
