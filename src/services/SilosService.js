@@ -4,6 +4,7 @@ import {
   SILOS_LOAD_START,
   SILOS_LOAD_SUCCESS
 } from "../actions/Actions";
+import { silosUrl } from "../utils/Urls";
 
 const getSilos = dispatch => {
   dispatch({ type: SILOS_LOAD_START });
@@ -12,7 +13,7 @@ const getSilos = dispatch => {
     Authorization: "Token " + token,
   };
   axios
-    .get("https://silo-be.herokuapp.com/silo/", { headers })
+    .get(silosUrl, { headers })
     .then(response =>
       dispatch({
         type: SILOS_LOAD_SUCCESS,

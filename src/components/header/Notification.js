@@ -1,6 +1,6 @@
 import React from "react";
 
-const Notification = ({ title, body, time, read }) => {
+const Notification = ({ title, body, time, read = true}) => {
   return (
     <div style={style.container}>
       {read ? (

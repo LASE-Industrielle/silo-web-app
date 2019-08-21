@@ -1,7 +1,11 @@
 import React from "react";
 import Notification from "./Notification";
 
-const NotificationsWidget = ({ notifications, unreadCount, readCount }) => (
+const NotificationsWidget = ({
+  notifications = [],
+  unreadCount,
+  readCount
+}) => (
   <div style={style.container}>
     <div style={style.readText}>
       {unreadCount === 0 ? (
@@ -13,9 +17,10 @@ const NotificationsWidget = ({ notifications, unreadCount, readCount }) => (
     <div style={style.notificationList}>
       {notifications.data.map(item => (
         <Notification
+          key={item.timestamp}
           title={item.title}
           body={item.body}
-          time={item.time}
+          time={item.timestamp}
           read={item.read}
         />
       ))}

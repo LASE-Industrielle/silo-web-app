@@ -5,6 +5,16 @@ const initialState = {
     token: "",
     errorMessage: "",
     loading: false
+  },
+  silos: {
+    data: [],
+    errorMessage: "",
+    loading: false
+  },
+  notifications: {
+    data: [],
+    errorMessage: "",
+    loading: false
   }
 };
 
