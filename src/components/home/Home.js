@@ -1,39 +1,44 @@
-import React, { useState, useEffect } from "react";
-import AnalyticsWidget from "../elements/AnalyticsWidget";
-import SiloStatusWidget from "../elements/SiloStatusWidget";
-import SiloSearchWidget from "../elements/SiloSearchWidget";
-import SpecificationWidget from "../elements/SpecificationWidget";
-import Header from "../header/Header";
-import { useStore } from "../../context/StateContext";
-import getSilos from "../../services/SilosService";
-import Spinner from "../spinner/Spinner";
+import React, { useEffect, useState } from 'react'
+import AnalyticsWidget from '../elements/AnalyticsWidget'
+import SiloStatusWidget from '../elements/SiloStatusWidget'
+import SiloSearchWidget from '../elements/SiloSearchWidget'
+import SpecificationWidget from '../elements/SpecificationWidget'
+import Header from '../header/Header'
+import { useStore } from '../../context/StateContext'
+import getSilos from '../../services/SilosService'
+import Spinner from '../spinner/Spinner'
+import SiloGraphWidget from '../elements/SiloGraphWidget'
+import GraphDataWidget from '../elements/GraphDataWidget'
 
 const Home = ({ history }) => {
-  const [{ silos }, dispatch] = useStore();
+  const [{ silos }, dispatch] = useStore()
+  const [{ measurements }, dispatchMeasurements] = useStore()
+
+  const [showGraph, setShowGraph] = useState(false)
 
   useEffect(() => {
-    getSilos(dispatch);
-  }, [dispatch]);
+    getSilos(dispatch)
+  }, [dispatch])
 
   useEffect(() => {
-    if (silos["data"] !== undefined && silos.data.length > 0) {
-      setSelectedSilo(silos.data[0]);
+    if (silos['data'] !== undefined && silos.data.length > 0) {
+      setSelectedSilo(silos.data[0])
     }
-  }, [silos]);
+  }, [silos])
 
-  const [selectedSilo, setSelectedSilo] = useState(null);
+  const [selectedSilo, setSelectedSilo] = useState(null)
 
   if (silos === undefined || silos.loading === true) {
     return (
       <div style={styles.loading}>
-        <Spinner />
+        <Spinner/>
       </div>
-    );
+    )
   } else {
     return (
       <div style={styles.container}>
-        <div style={{ width: "80%" }}>
-          <Header history={history} />
+        <div style={{ width: '80%' }}>
+          <Header history={history}/>
           <div style={styles.contentContainer}>
             <SiloSearchWidget
               data={silos.data}
@@ -43,50 +48,58 @@ const Home = ({ history }) => {
 
             <div style={styles.widgetsContainer}>
               {selectedSilo && (
-                <>
-                  <SiloStatusWidget silos={selectedSilo} />
-                  <div style={styles.detailWidgetsContainer}>
-                    <AnalyticsWidget silos={selectedSilo} />
-                    <SpecificationWidget silos={selectedSilo} />
-                  </div>
-                </>
+                showGraph && measurements.data ? <>
+                    <SiloGraphWidget
+                      data={measurements.data} selectedSiloId={selectedSilo.id}
+                      onPressBack={() => setShowGraph(false)}/>
+                    <GraphDataWidget data={measurements.data}/></> :
+                  <>
+                    <SiloStatusWidget silos={selectedSilo}/>
+                    <div style={styles.detailWidgetsContainer}>
+                      <AnalyticsWidget
+                        silos={selectedSilo}
+                        onPressAnalytics={() => setShowGraph(true)}/>
+                      <SpecificationWidget silos={selectedSilo}/>
+                    </div>
+                  </>
+
               )}
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   }
-};
+}
 
 const styles = {
   container: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    alignSelf: "stretch",
-    alignItems: "center",
-    flexDirection: "column"
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   contentContainer: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   widgetsContainer: {
     flex: 3,
-    margin: "0 100px 20px 0"
+    margin: '0 100px 20px 0',
   },
   detailWidgetsContainer: {
-    display: "flex",
+    display: 'flex',
     flex: 1,
-    height: 400
+    height: 400,
   },
   loading: {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  }
-};
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}
 
-export default Home;
+export default Home

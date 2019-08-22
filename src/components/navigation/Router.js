@@ -8,7 +8,6 @@ import {
 import Home from "../home/Home";
 import Login from "../login/LoginComponent";
 import PrivateRoute from "../../routes/PrivateRoute";
-import Graph from '../graph/Graph'
 
 const AppRouter = () => {
   return (
@@ -17,7 +16,6 @@ const AppRouter = () => {
         <Route path="/login" component={Login} />
         <Route exact path="/" render={() => <Redirect to="/home" />} />
         <PrivateRoute exact path="/home" component={Home} />
-        <PrivateRoute exact path="/graph" component={Graph}/>
       </Switch>
     </Router>
   );

@@ -40,7 +40,7 @@ const RoundDateTimePicker = ({ time, setTime }) => {
   />)
 }
 
-const SiloGraphWidget = ({ data }) => {
+const SiloGraphWidget = ({ data, onPressBack , selectedSiloId}) => {
 
   const [startDate, setStartDate] = useState(new Date())
   const [startTime, setStartTime] = useState(new Date())
@@ -52,8 +52,8 @@ const SiloGraphWidget = ({ data }) => {
   const [selectedPeriod, setSelectedPeriod] = useState('hour')
 
   useEffect(() => {
-    getMeasurementsForGraph(dispatch, 1, selectedPeriod)
-  }, [dispatch, selectedPeriod])
+    getMeasurementsForGraph(dispatch, selectedSiloId, selectedPeriod)
+  }, [dispatch, selectedPeriod, selectedSiloId])
 
   return (
 
@@ -62,6 +62,7 @@ const SiloGraphWidget = ({ data }) => {
       <div
         style={styles.graphWidgetButtonsWrapper}>
         <div style={styles.graphWidgetHeader}><span
+          onClick={() => onPressBack()}
           style={styles.backArrow}>&lt;</span> Analytics
         </div>
 
@@ -93,8 +94,10 @@ const SiloGraphWidget = ({ data }) => {
         </div>
 
         <div style={styles.actionButtonsWrapper}>
-          <div style={styles.button} onClick={() => getMeasurementsForGraphWithTimestamp(dispatch, 1, startDate, startTime,
-            endDate, endTime)}>
+          <div style={styles.button}
+               onClick={() => getMeasurementsForGraphWithTimestamp(dispatch, selectedSiloId,
+                 startDate, startTime,
+                 endDate, endTime)}>
             Apply
           </div>
           <div style={styles.button}>Export data to csv
@@ -141,7 +144,7 @@ const styles = {
 
   },
   button: {
-    cursor:'pointer',
+    cursor: 'pointer',
     display: 'flex',
     color: '#fff',
     fontSize: 12,
@@ -190,6 +193,7 @@ const styles = {
     color: '#fff',
   },
   backArrow: {
+    cursor:'pointer',
     width: 24,
     marginRight: 8,
   },

@@ -2,7 +2,7 @@ import React from "react";
 import AnalyticsListItem from "./AnalyticsListItem";
 import { AnalyticsIcon } from "../../icons/AnalyticsIcon";
 
-const AnalyticsWidget = ({ silos }) => {
+const AnalyticsWidget = ({ silos, onPressAnalytics }) => {
   return (
     <div
       style={{
@@ -101,6 +101,7 @@ const AnalyticsWidget = ({ silos }) => {
       >
         <div
           style={{
+            cursor:'pointer',
             display: "flex",
             flex: 1,
             alignItems: "center",
@@ -111,7 +112,7 @@ const AnalyticsWidget = ({ silos }) => {
             color: "#fff",
             fontSize: 14,
             boxShadow: "0px 3px 6px rgba(0,0,0,0.08)"
-          }}
+          }} onClick={()=> onPressAnalytics()}
         >
           <AnalyticsIcon fill={"#fff"} />
           <span style={{ marginLeft: 10 }}>ANALYTICS</span>

@@ -6,6 +6,7 @@ const SiloListItem = ({ silo, isHighlighted }) => {
   return (
     <div
       style={{
+        cursor:'pointer',
         display: "flex",
         padding: "10px 14px",
         borderBottom: "1px #E9E9E9 solid",
