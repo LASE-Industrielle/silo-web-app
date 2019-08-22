@@ -1,12 +1,5 @@
 import React from 'react'
 
-const options = [
-  { value: 'hour', label: 'Date' },
-  { value: 'day', label: 'Day' },
-  { value: 'week', label: 'Week' },
-  { value: 'month', label: 'Month' },
-]
-
 const GraphDataWidget = ({ data }) => {
   return (
     <div style={{

@@ -5,14 +5,17 @@ import DatePicker from 'react-datepicker'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import './DateTimePicker.css'
-import getMeasurementsForGraph from '../../services/MeasurementsService'
+import {
+  getMeasurementsForGraph,
+  getMeasurementsForGraphWithTimestamp,
+} from '../../services/MeasurementsService'
 import { useStore } from '../../context/StateContext'
 
 const options = [
-  { value: 'hour', label: 'Hour' },
-  { value: 'day', label: 'Day' },
-  { value: 'week', label: 'Week' },
-  { value: 'month', label: 'Month' },
+  { value: 'hour', label: 'Last hour' },
+  { value: 'day', label: 'Last day' },
+  { value: 'week', label: 'Last week' },
+  { value: 'month', label: 'Last month' },
 ]
 
 const RoundDatePicker = ({ date, setDate }) => {
@@ -39,21 +42,18 @@ const RoundDateTimePicker = ({ time, setTime }) => {
 
 const SiloGraphWidget = ({ data }) => {
 
-  const [{ measurements }, dispatch] = useStore()
-  const [selectedPeriod, setSelectedPeriod] = useState('hour')
-  useEffect(() => {
-    getMeasurementsForGraph(dispatch, 1, selectedPeriod)
-  }, [dispatch, selectedPeriod])
-
-  useEffect(() => {
-    console.log('silo graph widget', data)
-  }, [data])
-
   const [startDate, setStartDate] = useState(new Date())
   const [startTime, setStartTime] = useState(new Date())
 
   const [endDate, setEndDate] = useState(new Date())
   const [endTime, setEndTime] = useState(new Date())
+
+  const [{ measurements }, dispatch] = useStore()
+  const [selectedPeriod, setSelectedPeriod] = useState('hour')
+
+  useEffect(() => {
+    getMeasurementsForGraph(dispatch, 1, selectedPeriod)
+  }, [dispatch, selectedPeriod])
 
   return (
 
@@ -62,7 +62,7 @@ const SiloGraphWidget = ({ data }) => {
       <div
         style={styles.graphWidgetButtonsWrapper}>
         <div style={styles.graphWidgetHeader}><span
-          style={styles.backArrow}>&lt;</span> Analytics by {selectedPeriod}
+          style={styles.backArrow}>&lt;</span> Analytics
         </div>
 
 
@@ -93,7 +93,8 @@ const SiloGraphWidget = ({ data }) => {
         </div>
 
         <div style={styles.actionButtonsWrapper}>
-          <div style={styles.button}>
+          <div style={styles.button} onClick={() => getMeasurementsForGraphWithTimestamp(dispatch, 1, startDate, startTime,
+            endDate, endTime)}>
             Apply
           </div>
           <div style={styles.button}>Export data to csv
@@ -140,6 +141,7 @@ const styles = {
 
   },
   button: {
+    cursor:'pointer',
     display: 'flex',
     color: '#fff',
     fontSize: 12,
