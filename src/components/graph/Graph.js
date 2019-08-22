@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import Header from '../elements/Header'
+import Header from '../header/Header'
 import SiloSearchWidget from '../elements/SiloSearchWidget'
 import SiloGraphWidget from '../elements/SiloGraphWidget'
 import GraphDataWidget from '../elements/GraphDataWidget'
+import { useStore } from '../../context/StateContext'
 
 const data = [
   {
@@ -28,6 +29,8 @@ const data = [
 
 const Graph = () => {
 
+  const [{ measurements }, dispatch] = useStore()
+
   const [selectedSilo, setSelectedSilo] = useState(null)
 
   return (
@@ -35,12 +38,12 @@ const Graph = () => {
       <div style={{ width: '80%' }}>
         <Header/>
         <div style={styles.contentContainer}>
-          <SiloSearchWidget data={data}/>
-
+          <SiloSearchWidget data={data} selectedSiloId={1}
+                            setSelectedSilo={setSelectedSilo}/>
 
           <div style={styles.widgetsContainer}>
-            <SiloGraphWidget silos={data[0]}/>
-            <GraphDataWidget/>
+            {measurements.data && <SiloGraphWidget data={measurements.data}/>}
+            <GraphDataWidget data={measurements.data}/>
 
           </div>
 

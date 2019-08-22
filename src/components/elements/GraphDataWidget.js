@@ -7,7 +7,7 @@ const options = [
   { value: 'month', label: 'Month' },
 ]
 
-const GraphDataWidget = ({ silos }) => {
+const GraphDataWidget = ({ data }) => {
   return (
     <div style={{
       display: 'flex',
@@ -28,10 +28,10 @@ const GraphDataWidget = ({ silos }) => {
       }}>Graph Data
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap',  overflowY:'auto' }}>{
-        [...Array(45).keys()].map(
-          percentage => (
+        Object.entries(data).map(
+          entry => (
             <div
-              key={percentage}
+              key={entry[0]}
               style={{
                 height: 28,
                 width: 100,
@@ -49,7 +49,7 @@ const GraphDataWidget = ({ silos }) => {
                 color: '#898989',
                 marginBottom: 8,
                 fontSize: 12,
-              }}>Friday, May 24
+              }}>{entry[0]}
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{
@@ -64,7 +64,7 @@ const GraphDataWidget = ({ silos }) => {
                   color: '#262626',
                   fontSize: 14,
                   fontWeight: 'medium',
-                }}>{percentage}%
+                }}>{entry[1]}%
                 </div>
               </div>
             </div>

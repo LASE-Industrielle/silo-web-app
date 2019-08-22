@@ -1,26 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { VictoryAxis, VictoryChart, VictoryLine } from 'victory'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import './DateTimePicker.css'
+import getMeasurementsForGraph from '../../services/MeasurementsService'
+import { useStore } from '../../context/StateContext'
 
 const options = [
-  { value: 'hour', label: 'Date' },
+  { value: 'hour', label: 'Hour' },
   { value: 'day', label: 'Day' },
   { value: 'week', label: 'Week' },
   { value: 'month', label: 'Month' },
-]
-
-const chartDummyData = [
-  { x: 1, y: 2 },
-  { x: 2, y: 3 },
-  { x: 3, y: 5 },
-  { x: 4, y: 4 },
-  { x: 5, y: 6 },
-  { x: 6, y: 3 },
-  { x: 7, y: 7 },
 ]
 
 const RoundDatePicker = ({ date, setDate }) => {
@@ -45,7 +37,17 @@ const RoundDateTimePicker = ({ time, setTime }) => {
   />)
 }
 
-const SiloGraphWidget = ({ silos }) => {
+const SiloGraphWidget = ({ data }) => {
+
+  const [{ measurements }, dispatch] = useStore()
+  const [selectedPeriod, setSelectedPeriod] = useState('hour')
+  useEffect(() => {
+    getMeasurementsForGraph(dispatch, 1, selectedPeriod)
+  }, [dispatch, selectedPeriod])
+
+  useEffect(() => {
+    console.log('silo graph widget', data)
+  }, [data])
 
   const [startDate, setStartDate] = useState(new Date())
   const [startTime, setStartTime] = useState(new Date())
@@ -54,12 +56,13 @@ const SiloGraphWidget = ({ silos }) => {
   const [endTime, setEndTime] = useState(new Date())
 
   return (
+
     <div
       style={styles.graphWidgetContainer}>
       <div
         style={styles.graphWidgetButtonsWrapper}>
         <div style={styles.graphWidgetHeader}><span
-          style={styles.backArrow}>&lt;</span> Analytics
+          style={styles.backArrow}>&lt;</span> Analytics by {selectedPeriod}
         </div>
 
 
@@ -67,14 +70,15 @@ const SiloGraphWidget = ({ silos }) => {
           styles={styles.reactSelect}
           options={options}
           defaultValue={options[0]}
+          onChange={option => setSelectedPeriod(option.value)}
         /></div>
         <div style={{ marginTop: 20 }}>
           <div style={styles.dateTimePickerLabel}>
             Select start date & time
           </div>
           <div style={styles.dateTimePickerWrapper}>
-              <RoundDatePicker date={startDate} setDate={setStartDate}/>
-              <RoundDateTimePicker time={startTime} setTime={setStartTime}/>
+            <RoundDatePicker date={startDate} setDate={setStartDate}/>
+            <RoundDateTimePicker time={startTime} setTime={setStartTime}/>
           </div>
 
           <div style={{ marginTop: 20 }}>
@@ -113,7 +117,8 @@ const SiloGraphWidget = ({ silos }) => {
             <VictoryLine
               interpolation="natural"
               style={styles.victoryLine}
-              data={chartDummyData}
+              data={Object.entries(data).
+                map((val) => ({ x: val[0], y: val[1] }))}
             />
           </VictoryChart>
 

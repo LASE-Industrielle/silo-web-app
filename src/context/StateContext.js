@@ -15,6 +15,11 @@ const initialState = {
     data: [],
     errorMessage: "",
     loading: false
+  },
+  measurements: {
+    data: [],
+    errorMessage: "",
+    loading: false
   }
 };
 
