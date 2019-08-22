@@ -1,36 +1,30 @@
 import {
-  AUTH_ERROR,
-  AUTH_START,
-  AUTH_SUCCESS,
-  LOGOUT_USER
+  SILOS_LOAD_START,
+  SILOS_LOAD_SUCCESS,
+  SILOS_LOAD_ERROR
 } from "../actions/Actions";
 
-const authReducer = (state, action) => {
+const silosReducer = (state, action) => {
   switch (action.type) {
-    case AUTH_START:
+    case SILOS_LOAD_START:
       return {
         ...state,
         loading: true
       };
-    case AUTH_SUCCESS:
+    case SILOS_LOAD_SUCCESS:
       return {
         ...state,
-        token: action.payload,
+        data: action.payload,
         loading: false
       };
-    case AUTH_ERROR:
+    case SILOS_LOAD_ERROR:
       return {
         ...state,
         errorMessage: "failed",
         loading: false
       };
-    case LOGOUT_USER:
-      return {
-        ...state,
-        token: ""
-      };
     default:
       return state;
   }
 };
-export { authReducer };
+export { silosReducer };
