@@ -37,7 +37,7 @@ const Home = ({ history }) => {
   } else {
     return (
       <div style={styles.container}>
-        <div style={{ width: '80%' }}>
+        <div style={{ width: 1440 }}>
           <Header history={history}/>
           <div style={styles.contentContainer}>
             <SiloSearchWidget
@@ -84,10 +84,12 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center'
   },
   widgetsContainer: {
-    flex: 3,
-    margin: '0 100px 20px 0',
+    minWidth:780,
+    flex: 'initial',
+    margin: '0 0px 20px 0',
   },
   detailWidgetsContainer: {
     display: 'flex',

@@ -9,10 +9,9 @@ const SiloSearchWidget = ({ data = [], selectedSiloId, setSelectedSilo }) => {
     <div
       style={{
         backgroundColor: "#fff",
-        flex: 1,
-        minWidth: 400,
+        maxWidth: 400,
         borderRadius: 6,
-        margin: "0 20px 30px 50px",
+        margin: "0 20px 30px 0",
         boxShadow: "0px 3px 6px rgba(0,0,0,0.08)"
       }}
     >
