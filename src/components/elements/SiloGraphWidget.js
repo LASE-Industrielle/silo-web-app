@@ -10,6 +10,7 @@ import {
   getMeasurementsForGraphWithTimestamp,
 } from '../../services/MeasurementsService'
 import { useStore } from '../../context/StateContext'
+import getCsvExport from  '../../services/CsvService'
 
 const options = [
   { value: 'hour', label: 'Last hour' },
@@ -100,7 +101,7 @@ const SiloGraphWidget = ({ data, onPressBack , selectedSiloId}) => {
                  endDate, endTime)}>
             Apply
           </div>
-          <div style={styles.button}>Export data to csv
+          <div onClick={()=> getCsvExport(selectedSiloId)} style={styles.button}>Export data to csv
           </div>
         </div>
       </div>
