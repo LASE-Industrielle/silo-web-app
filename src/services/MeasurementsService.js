@@ -4,24 +4,20 @@ import {
   MEASUREMENT_LOAD_START,
   MEASUREMENT_LOAD_SUCCESS,
 } from '../actions/Actions'
-import { measurementsGraphUrl } from '../utils/Urls'
+import { measurementsGraphUrl, timestampUrlSuffix } from '../utils/Urls'
+import getIsoStringsFromDates from './DateService'
 
 const getMeasurementsForGraph = (dispatch, siloId, selectedPeriod) => {
   const url = `${measurementsGraphUrl}${siloId}/${selectedPeriod}`
-
   fetchGraphData(dispatch, url)
-
 }
 
 const getMeasurementsForGraphWithTimestamp = (
   dispatch, siloId, startDate, startTime, endDate, endTime) => {
-  const startDateIso = startDate.toISOString().split('T')[0]
-  const startTimeIso = startTime.toISOString().split('T')[1]
-
-  const endDateIso = endDate.toISOString().split('T')[0]
-  const endTimeIso = endTime.toISOString().split('T')[1]
-
-  const url = `${measurementsGraphUrl}${siloId}/${startDateIso}T${startTimeIso}/${endDateIso}T${endTimeIso}`
+  const [startDateIso, startTimeIso, endDateIso, endTimeIso] = getIsoStringsFromDates(
+    startDate, startTime, endDate, endTime)
+  const url = `${measurementsGraphUrl}${siloId}/${timestampUrlSuffix(
+    startDateIso, startTimeIso, endDateIso, endTimeIso)}`
   fetchGraphData(dispatch, url)
 
 }

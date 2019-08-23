@@ -10,7 +10,7 @@ import {
   getMeasurementsForGraphWithTimestamp,
 } from '../../services/MeasurementsService'
 import { useStore } from '../../context/StateContext'
-import getCsvExport from  '../../services/CsvService'
+import getCsvExport from '../../services/CsvService'
 
 const options = [
   { value: 'hour', label: 'Last hour' },
@@ -41,7 +41,7 @@ const RoundDateTimePicker = ({ time, setTime }) => {
   />)
 }
 
-const SiloGraphWidget = ({ data, onPressBack , selectedSiloId}) => {
+const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
 
   const [startDate, setStartDate] = useState(new Date())
   const [startTime, setStartTime] = useState(new Date())
@@ -96,12 +96,15 @@ const SiloGraphWidget = ({ data, onPressBack , selectedSiloId}) => {
 
         <div style={styles.actionButtonsWrapper}>
           <div style={styles.button}
-               onClick={() => getMeasurementsForGraphWithTimestamp(dispatch, selectedSiloId,
+               onClick={() => getMeasurementsForGraphWithTimestamp(dispatch,
+                 selectedSiloId,
                  startDate, startTime,
                  endDate, endTime)}>
             Apply
           </div>
-          <div onClick={()=> getCsvExport(selectedSiloId)} style={styles.button}>Export data to csv
+          <div onClick={() => getCsvExport(selectedSiloId,
+            startDate, startTime,
+            endDate, endTime)} style={styles.button}>Export data to csv
           </div>
         </div>
       </div>
@@ -194,7 +197,7 @@ const styles = {
     color: '#fff',
   },
   backArrow: {
-    cursor:'pointer',
+    cursor: 'pointer',
     width: 24,
     marginRight: 8,
   },

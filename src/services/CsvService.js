@@ -1,7 +1,14 @@
 import axios from 'axios'
-import { csvExportUrl } from '../utils/Urls'
+import { csvExportUrl, timestampUrlSuffix } from '../utils/Urls'
+import getIsoStringsFromDates from './DateService'
 
-const getCsvExport = (siloId) => {
+const getCsvExport = (siloId, startDate, startTime, endDate, endTime) => {
+
+  const [startDateIso, startTimeIso, endDateIso, endTimeIso] = getIsoStringsFromDates(
+    startDate, startTime, endDate, endTime)
+
+  const url = `${csvExportUrl}${siloId}/${timestampUrlSuffix(startDateIso,
+    startTimeIso, endDateIso, endTimeIso)}`
 
   const token = localStorage.getItem('token')
   const headers = {
@@ -9,7 +16,7 @@ const getCsvExport = (siloId) => {
   }
 
   axios({
-    url: csvExportUrl + siloId,
+    url: url,
     method: 'GET',
     responseType: 'blob',
     headers,
