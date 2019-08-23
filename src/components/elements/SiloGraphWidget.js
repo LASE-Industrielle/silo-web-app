@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { VictoryAxis, VictoryChart, VictoryLine } from 'victory'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
+import { BackButton } from '../../icons/BackButton'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import './DateTimePicker.css'
@@ -62,9 +63,11 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
       style={styles.graphWidgetContainer}>
       <div
         style={styles.graphWidgetButtonsWrapper}>
-        <div style={styles.graphWidgetHeader}><span
-          onClick={() => onPressBack()}
-          style={styles.backArrow}>&lt;</span> Analytics
+        <div style={styles.graphWidgetHeader}>
+          <div onClick={() => onPressBack()}
+               style={styles.backArrow}
+          ><BackButton fill={'#fff'}/></div>
+          <div style={{height:24}}>Analytics</div>
         </div>
 
 
@@ -178,6 +181,8 @@ const styles = {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 42,
+    display:'flex',
+    alignItems:'center',
   },
   graphWidgetButtonsWrapper: {
     display: 'flex',
@@ -198,7 +203,6 @@ const styles = {
   },
   backArrow: {
     cursor: 'pointer',
-    width: 24,
     marginRight: 8,
   },
   dateTimePickerLabel: {
