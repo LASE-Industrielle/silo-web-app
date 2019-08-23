@@ -28,6 +28,7 @@ const ProfileWidget = ({ history }) => {
 
 const style = {
   container: {
+    cursor:'auto',
     position: "absolute",
     boxShadow: "0px 3px 6px rgba(0,0,0,0.08)",
     backgroundColor: "white",
@@ -68,6 +69,7 @@ const style = {
     alignSelf: "center"
   },
   signOutText: {
+    cursor: 'pointer',
     alignSelf: "center",
     fontWeight: "bold",
     color: "#F19B93",

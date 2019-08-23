@@ -98,7 +98,12 @@ const style = {
     fontSize: 16,
     marginLeft: 5
   },
-  headerContent: { display: "flex", alignItems: "center", marginLeft: 20 },
+  headerContent: {
+    display: "flex",
+    alignItems: "center",
+    marginLeft: 20,
+    cursor:'pointer'
+  },
   headerContentWrapper: {
     display: "flex",
     flex: 1,

@@ -34,6 +34,7 @@ const NotificationsWidget = ({
 
 const style = {
   container: {
+    cursor:'auto',
     position: "absolute",
     boxShadow: "0px 3px 6px rgba(0,0,0,0.08)",
     backgroundColor: "white",
@@ -58,8 +59,8 @@ const style = {
     justifyContent: "space-between",
     fontFamily: "Rubik"
   },
-  allRead: { color: "#6CC799", margin: 5 },
-  clearAll: { color: "#F19B93", margin: 5 }
+  allRead: { color: "#6CC799", margin: 5, cursor: 'pointer' },
+  clearAll: { color: "#F19B93", margin: 5 , cursor: 'pointer'}
 };
 
 export default NotificationsWidget;

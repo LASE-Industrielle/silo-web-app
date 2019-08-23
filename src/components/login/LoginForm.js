@@ -125,6 +125,7 @@ const styles = {
     color: "#AAA9A9"
   },
   button: {
+    cursor: 'pointer',
     display: "flex",
     width: "100%",
     height: "30px",
@@ -132,7 +133,6 @@ const styles = {
     fontWeight: "500",
     marginTop: 20,
     backgroundColor: "#02A04E",
-    // padding: 15,
     color: "white",
     justifyContent: "center",
     alignItems: "center",
