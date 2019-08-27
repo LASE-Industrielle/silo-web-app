@@ -24,7 +24,7 @@ const RoundDatePicker = ({ date, setDate }) => {
   return (<DatePicker
     selected={date}
     onChange={e => setDate(e)}
-    dateFormat="dd.MM.yyyy."
+    dateFormat="dd.MM.yyyy"
     className="dateTimePicker"
   />)
 }
