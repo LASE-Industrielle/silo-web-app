@@ -117,6 +117,7 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
           <VictoryChart
             width={472}
             height={394}
+            domainPadding={30}
           >
             <VictoryAxis
               style={styles.victoryAxisX}
