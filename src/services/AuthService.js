@@ -46,4 +46,13 @@ const isAuthenticated = () => {
   return token !== null;
 };
 
-export default { authCall, isAuthenticated };
+const logout = (dispatch, history) => {
+  localStorage.removeItem("token");
+  dispatch({
+    type: AUTH_SUCCESS,
+    payload: ""
+  })
+  history.push("/login");
+}
+
+export default { authCall, isAuthenticated, logout };

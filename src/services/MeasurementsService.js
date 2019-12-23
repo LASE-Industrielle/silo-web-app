@@ -8,7 +8,7 @@ import { measurementsGraphUrl, timestampUrlSuffix } from '../utils/Urls'
 import getIsoStringsFromDates from './DateService'
 
 const getMeasurementsForGraph = (dispatch, siloId, selectedPeriod) => {
-  const url = `${measurementsGraphUrl}${siloId}/${selectedPeriod}`
+  const url = `${measurementsGraphUrl}${siloId}/${selectedPeriod}/`
   fetchGraphData(dispatch, url)
 }
 
@@ -17,7 +17,7 @@ const getMeasurementsForGraphWithTimestamp = (
   const [startDateIso, startTimeIso, endDateIso, endTimeIso] = getIsoStringsFromDates(
     startDate, startTime, endDate, endTime)
   const url = `${measurementsGraphUrl}${siloId}/${timestampUrlSuffix(
-    startDateIso, startTimeIso, endDateIso, endTimeIso)}`
+    startDateIso, startTimeIso, endDateIso, endTimeIso)}/`
   fetchGraphData(dispatch, url)
 
 }

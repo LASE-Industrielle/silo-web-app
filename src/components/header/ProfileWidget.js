@@ -3,13 +3,16 @@ import NotificationSettingsIcon from "../../icons/NotificationSettingsIcon";
 import SyncIcon from "../../icons/SyncIcon";
 import ccLogo from "../../assets/cc.jpg";
 import ProfileIcon from "../../icons/SyncIcon";
+import AuthService from "../../services/AuthService";
+import {useStore} from "../../context/StateContext";
 
 const ProfileWidget = ({ history }) => {
   const [username, setUsername] = useState("codecentric");
+  const [{auth},dispatch] = useStore()
+
 
   const logout = () => {
-    localStorage.removeItem("token");
-    history.push("/login");
+    AuthService.logout(dispatch, history)
   };
 
   return (
