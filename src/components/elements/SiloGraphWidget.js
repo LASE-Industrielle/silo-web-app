@@ -51,11 +51,23 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
   const [endTime, setEndTime] = useState(new Date())
 
   const [{ measurements }, dispatch] = useStore()
+
   const [selectedPeriod, setSelectedPeriod] = useState('hour')
+  const initialCsvState = 'init'
+  const [selectedPeriodForCsv, setSelectedPeriodForCsv] = useState(
+    initialCsvState)
 
   useEffect(() => {
     getMeasurementsForGraph(dispatch, selectedSiloId, selectedPeriod)
+    setSelectedPeriodForCsv(selectedPeriod)
   }, [dispatch, selectedPeriod, selectedSiloId])
+
+  useEffect(() => {
+    // prevent setting empty value on first render
+    if (selectedPeriodForCsv !== initialCsvState) {
+      setSelectedPeriodForCsv('')
+    }
+  }, [startDate, startTime, endDate, endTime])
 
   return (
 
@@ -67,7 +79,7 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
           <div onClick={() => onPressBack()}
                style={styles.backArrow}
           ><BackButton fill={'#fff'}/></div>
-          <div style={{height:24}}>Analytics</div>
+          <div style={{ height: 24 }}>Analytics</div>
         </div>
 
 
@@ -103,11 +115,12 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
                  selectedSiloId,
                  startDate, startTime,
                  endDate, endTime)}>
-            Apply
+            Apply custom dates
           </div>
           <div onClick={() => getCsvExport(selectedSiloId,
             startDate, startTime,
-            endDate, endTime)} style={styles.button}>Export data to csv
+            endDate, endTime, selectedPeriodForCsv)}
+               style={styles.button}>Export data to csv
           </div>
         </div>
       </div>
@@ -182,8 +195,8 @@ const styles = {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 42,
-    display:'flex',
-    alignItems:'center',
+    display: 'flex',
+    alignItems: 'center',
   },
   graphWidgetButtonsWrapper: {
     display: 'flex',
