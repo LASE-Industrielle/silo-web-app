@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next'
 
 const LoginForm = ({ login }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { t } = useTranslation()
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -22,7 +24,7 @@ const LoginForm = ({ login }) => {
       }}
     >
       <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-        <p style={styles.heading}>Sign In</p>
+        <p style={styles.heading}>{t("Sign In")}</p>
         <form
           style={{
             width: "100%",
@@ -33,7 +35,7 @@ const LoginForm = ({ login }) => {
           }}
           onSubmit={handleSubmit}
         >
-          <label style={styles.label}>Email</label>
+          <label style={styles.label}>{t("Email")}</label>
           <input
             placeholder="xyz@example.com"
             style={styles.input}
@@ -42,7 +44,7 @@ const LoginForm = ({ login }) => {
             value={username}
             onChange={e => setUsername(e.target.value)}
           />
-          <label style={styles.label}>Password</label>
+          <label style={styles.label}>{t("Password")}</label>
           <input
             placeholder={
               "\u002A \u002A \u002A \u002A \u002A \u002A \u002A \u002A \u002A \u002A \u002A"
@@ -60,10 +62,10 @@ const LoginForm = ({ login }) => {
               textDecoration: "none"
             }}
           >
-            <p style={styles.link}>Forgot Password</p>
+            <p style={styles.link}>{t("Forgot Password")}</p>
           </a>
           <button style={styles.button} type="submit">
-            LOG IN
+            {t("LOG IN")}
           </button>
         </form>
         <div
@@ -75,9 +77,9 @@ const LoginForm = ({ login }) => {
             width: "100%"
           }}
         >
-          <p style={styles.footer}>Don't have an account? </p>
+          <p style={styles.footer}>{t("Don't have an account?")}</p>
           <a href="/" style={{ textDecoration: "none" }}>
-            <p style={styles.footerLink}>Sign up</p>
+            <p style={styles.footerLink}>{t("Sign up")}</p>
           </a>
         </div>
       </div>

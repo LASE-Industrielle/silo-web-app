@@ -1,8 +1,10 @@
 import React from "react";
 import AnalyticsListItem from "./AnalyticsListItem";
 import { AnalyticsIcon } from "../../icons/AnalyticsIcon";
+import { useTranslation } from 'react-i18next'
 
 const AnalyticsWidget = ({ silos, onPressAnalytics }) => {
+  const { t } = useTranslation()
   return (
     <div
       style={{
@@ -35,7 +37,7 @@ const AnalyticsWidget = ({ silos, onPressAnalytics }) => {
               marginBottom: 6
             }}
           >
-            Content
+            {t("Content")}
           </div>
           <div
             style={{
@@ -54,7 +56,7 @@ const AnalyticsWidget = ({ silos, onPressAnalytics }) => {
               marginBottom: 6
             }}
           >
-            Capacity
+              {t("Capacity")}
           </div>
           <div
             style={{
@@ -85,7 +87,7 @@ const AnalyticsWidget = ({ silos, onPressAnalytics }) => {
             color: "#BEB9B9"
           }}
         >
-          Average
+          {t("Average")}
         </div>
       </div>
       {Object.entries(silos.values_by_day).map(({ 0: date, 1: value }) => (
@@ -115,7 +117,7 @@ const AnalyticsWidget = ({ silos, onPressAnalytics }) => {
           }} onClick={()=> onPressAnalytics()}
         >
           <AnalyticsIcon fill={"#fff"} />
-          <span style={{ marginLeft: 10 }}>ANALYTICS</span>
+          <span style={{ marginLeft: 10 }}>{t("ANALYTICS")}</span>
         </div>
       </div>
     </div>

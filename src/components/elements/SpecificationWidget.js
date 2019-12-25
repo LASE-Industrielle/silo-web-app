@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from 'react-i18next'
 
 const SpecificationWidget = ({ silos }) => {
+  const { t } = useTranslation()
   return (
     <div
       style={{
@@ -19,7 +21,7 @@ const SpecificationWidget = ({ silos }) => {
             fontSize: 18
           }}
         >
-          Configuration
+          {t("Configuration")}
         </div>
       </div>
 
@@ -30,7 +32,7 @@ const SpecificationWidget = ({ silos }) => {
             paddingRight: 12
           }}
         >
-          <div style={{ color: "#BEB9B9", fontSize: 14 }}>Width</div>
+          <div style={{ color: "#BEB9B9", fontSize: 14 }}>{t("Width")}</div>
           <div
             style={{
               color: "#83D0A9",
@@ -57,7 +59,7 @@ const SpecificationWidget = ({ silos }) => {
             padding: "0 12px"
           }}
         >
-          <div style={{ color: "#BEB9B9", fontSize: 14 }}>Height</div>
+          <div style={{ color: "#BEB9B9", fontSize: 14 }}>{t("Height")}</div>
           <div
             style={{
               color: "#83D0A9",
@@ -83,7 +85,7 @@ const SpecificationWidget = ({ silos }) => {
             paddingLeft: 12
           }}
         >
-          <div style={{ color: "#BEB9B9", fontSize: 14 }}>Capacity</div>
+          <div style={{ color: "#BEB9B9", fontSize: 14 }}>{t("Capacity")}</div>
           <div
             style={{
               color: "#83D0A9",
@@ -114,7 +116,7 @@ const SpecificationWidget = ({ silos }) => {
           }}
         >
           <div style={{ color: "#BEB9B9", fontSize: 14, marginBottom: 8 }}>
-            Location
+            {t("Location")}
           </div>
           <div style={{ color: "#898989", fontSize: 14 }}>
             {silos && silos.location}
@@ -122,7 +124,7 @@ const SpecificationWidget = ({ silos }) => {
         </div>
         <div style={{ borderBottom: "1px #E8E6EA solid", padding: "10px 0" }}>
           <div style={{ color: "#BEB9B9", fontSize: 14, marginBottom: 8 }}>
-            Serial Number
+            {t("Serial Number")}
           </div>
           <div style={{ color: "#898989", fontSize: 14 }}>
             {silos && silos.sensor && silos.sensor.serial_number}
@@ -130,7 +132,7 @@ const SpecificationWidget = ({ silos }) => {
         </div>
         <div style={{ paddingTop: 10 }}>
           <div style={{ color: "#BEB9B9", fontSize: 14, marginBottom: 8 }}>
-            Type
+            {t("Type")}
           </div>
           <div style={{ color: "#898989", fontSize: 14 }}>
             {silos && silos.sensor && silos.sensor.type}

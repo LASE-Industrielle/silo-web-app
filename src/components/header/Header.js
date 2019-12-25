@@ -6,14 +6,17 @@ import { ProfileIcon } from "../../icons/ProfileIcon";
 import NotificationsWidget from "./NotificationsWidget";
 import ProfileWidget from "./ProfileWidget";
 import getNotifications from "../../services/NotificationsService";
+import { useTranslation } from 'react-i18next'
 
 const Header = ({ history }) => {
+  const { t } = useTranslation()
   const [{ notifications }, dispatch] = useStore();
 
   const [unreadCount, setUnreadCount] = useState(0);
   const [readCount, setReadCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+
 
   useEffect(() => {
     getNotifications(dispatch);
@@ -50,7 +53,7 @@ const Header = ({ history }) => {
           onClick={() => setShowNotifications(!showNotifications)}
         >
           <NotificationIcon fill={"#6cc799"} />
-          <div style={style.headerText}>Notifications ({unreadCount})</div>
+          <div style={style.headerText}>{t("Notifications")} ({unreadCount})</div>
           <div style={style.dropdownTick}>{showNotifications ? "▲" : "▼"}</div>
           {showNotifications ? (
             <NotificationsWidget
@@ -65,7 +68,7 @@ const Header = ({ history }) => {
           onClick={() => setShowProfile(!showProfile)}
         >
           <ProfileIcon fill={"#6cc799"} />
-          <div style={style.headerText}>Profile</div>
+          <div style={style.headerText}>{t("Profile")}</div>
           <div style={style.dropdownTick}>{showProfile ? "▲" : "▼"}</div>
           {showProfile ? <ProfileWidget history={history} /> : null}
         </div>

@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from 'react-i18next'
 
 const Notification = ({ title, body, time, read = true}) => {
+  const { t } = useTranslation()
   return (
     <div style={style.container}>
       {read ? (
@@ -13,7 +15,7 @@ const Notification = ({ title, body, time, read = true}) => {
         <div style={style.body}>{body}</div>
         <div style={style.footer}>
           <div style={style.time}>{time}</div>
-          {read ? null : <div style={style.readButton}>Read</div>}
+          {read ? null : <div style={style.readButton}>{t("Read")}</div>}
         </div>
       </div>
     </div>
@@ -37,7 +39,7 @@ const style = {
     justifyContent: "flex-start"
   },
   time: { color: "#D6D6D6", margin: 3 },
-  readButton: { color: "#6CC799", margin: 3 }
+  readButton: { color: "#6CC799", margin: 3, cursor:'pointer' }
 };
 
 export default Notification;

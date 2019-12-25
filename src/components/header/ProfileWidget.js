@@ -5,8 +5,10 @@ import ccLogo from "../../assets/cc.jpg";
 import ProfileIcon from "../../icons/SyncIcon";
 import AuthService from "../../services/AuthService";
 import {useStore} from "../../context/StateContext";
+import { useTranslation } from 'react-i18next'
 
 const ProfileWidget = ({ history }) => {
+  const { t } = useTranslation()
   const [username, setUsername] = useState("codecentric");
   const [{auth},dispatch] = useStore()
 
@@ -22,7 +24,7 @@ const ProfileWidget = ({ history }) => {
       <div style={style.signOutButton}>
         <SyncIcon style={style.syncIcon} fill={"#F19B93"} />
         <div style={style.signOutText} onClick={() => logout()}>
-          Sign out
+          {t("Sign out")}
         </div>
       </div>
     </div>

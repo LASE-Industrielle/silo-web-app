@@ -1,6 +1,9 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const GraphDataWidget = ({ data }) => {
+  const { t } = useTranslation()
+
   return (
     <div style={{
       display: 'flex',
@@ -18,7 +21,7 @@ const GraphDataWidget = ({ data }) => {
         fontSize: 16,
         color: '#C5C5C5',
         marginBottom: 14,
-      }}>Graph Data
+      }}>{t("Graph Data")}
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap',  overflowY:'auto' }}>{
         Object.entries(data).map(

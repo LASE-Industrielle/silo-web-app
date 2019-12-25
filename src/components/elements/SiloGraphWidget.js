@@ -7,7 +7,7 @@ import {
   VictoryScatter,
 } from 'victory'
 import Select from 'react-select'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import { BackButton } from '../../icons/BackButton'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -18,13 +18,10 @@ import {
 } from '../../services/MeasurementsService'
 import { useStore } from '../../context/StateContext'
 import getCsvExport from '../../services/CsvService'
+import { useTranslation } from 'react-i18next'
+import de from 'date-fns/locale/de'
 
-const options = [
-  { value: 'hour', label: 'Last hour' },
-  { value: 'day', label: 'Last day' },
-  { value: 'week', label: 'Last week' },
-  { value: 'month', label: 'Last month' },
-]
+registerLocale('de', de)
 
 const RoundDatePicker = ({ date, setDate }) => {
   return (<DatePicker
@@ -32,23 +29,34 @@ const RoundDatePicker = ({ date, setDate }) => {
     onChange={e => setDate(e)}
     dateFormat="dd.MM.yyyy"
     className="dateTimePicker"
+    locale="de"
   />)
 }
 
 const RoundDateTimePicker = ({ time, setTime }) => {
+  const { t } = useTranslation()
   return (<DatePicker
     className="dateTimePicker"
     showTimeSelect
+    timeCaption={t("Time")}
     showTimeSelectOnly
     timeIntervals={15}
     selected={time}
     onChange={e => setTime(e)}
     timeFormat="HH:mm"
     dateFormat="HH:mm"
+    locale="de"
   />)
 }
 
 const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
+  const { t } = useTranslation()
+  const options = [
+    { value: 'hour', label: `${t('Last hour')}` },
+    { value: 'day', label: `${t('Last day')}` },
+    { value: 'week', label: `${t('Last week')}` },
+    { value: 'month', label: `${t('Last month')}` },
+  ]
 
   const [startDate, setStartDate] = useState(new Date())
   const [startTime, setStartTime] = useState(new Date())
@@ -85,7 +93,7 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
           <div onClick={() => onPressBack()}
                style={styles.backArrow}
           ><BackButton fill={'#fff'}/></div>
-          <div style={{ height: 24 }}>Analytics</div>
+          <div style={{ height: 24 }}>{t('Analytics')}</div>
         </div>
 
 
@@ -97,7 +105,7 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
         /></div>
         <div style={{ marginTop: 20 }}>
           <div style={styles.dateTimePickerLabel}>
-            Select start date & time
+            {t('Select start date & time')}
           </div>
           <div style={styles.dateTimePickerWrapper}>
             <RoundDatePicker date={startDate} setDate={setStartDate}/>
@@ -106,7 +114,7 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
 
           <div style={{ marginTop: 20 }}>
             <div style={styles.dateTimePickerLabel}>
-              Select end date & time
+              {t('Select end date & time')}
             </div>
             <div style={styles.dateTimePickerWrapper}>
               <RoundDatePicker date={endDate} setDate={setEndDate}/>
@@ -121,12 +129,12 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
                  selectedSiloId,
                  startDate, startTime,
                  endDate, endTime)}>
-            Apply custom dates
+            {t('Apply custom dates')}
           </div>
           <div onClick={() => getCsvExport(selectedSiloId,
             startDate, startTime,
             endDate, endTime, selectedPeriodForCsv)}
-               style={styles.button}>Export data to csv
+               style={styles.button}>{t('Export data to csv')}
           </div>
         </div>
       </div>

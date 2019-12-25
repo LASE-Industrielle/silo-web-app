@@ -1,8 +1,10 @@
 import React from "react";
 import { ArrowDownIcon } from "../../icons/ArrowDownIcon";
 import { ArrowUpIcon } from "../../icons/ArrowUpIcon";
+import { useTranslation } from 'react-i18next'
 
 const SiloStatusWidget = ({ silos }) => {
+  const { t } = useTranslation()
   return (
     <div
       style={{
@@ -49,7 +51,7 @@ const SiloStatusWidget = ({ silos }) => {
               marginBottom: 6
             }}
           >
-            {silos && silos.percentage}% full
+            {silos && silos.percentage}% {t("full")}
           </div>
           <div style={{ fontSize: 14, marginBottom: 32, fontWeight: "bold" }}>
             <ArrowDownIcon fill={"#96CEB7"} height={10} />0{" "}
