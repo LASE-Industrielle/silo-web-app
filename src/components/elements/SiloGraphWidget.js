@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { VictoryAxis, VictoryChart, VictoryLine } from 'victory'
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLabel,
+  VictoryLine,
+  VictoryScatter,
+} from 'victory'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 import { BackButton } from '../../icons/BackButton'
@@ -130,20 +136,31 @@ const SiloGraphWidget = ({ data, onPressBack, selectedSiloId }) => {
           <VictoryChart
             width={472}
             height={394}
-            domainPadding={30}
           >
             <VictoryAxis
               style={styles.victoryAxisX}
+              fixLabelOverlap
+              tickLabelComponent={<VictoryLabel dy={20}/>}
             />
             <VictoryAxis
               dependentAxis
+              crossAxis={false}
               style={styles.victoryAxisY}
+              domain={{ y: [0, 100] }}
             />
             <VictoryLine
-              interpolation="natural"
+
+              interpolation="monotoneX"
               style={styles.victoryLine}
               data={Object.entries(data).
                 map((val) => ({ x: val[0], y: val[1] }))}
+            />
+
+            <VictoryScatter
+              style={styles.victoryScatter}
+              data={Object.entries(data).
+                map((val) => ({ x: val[0], y: val[1] }))}
+
             />
           </VictoryChart>
 
@@ -297,6 +314,10 @@ const styles = {
     data: { stroke: '#fff' },
     parent: { border: '5px solid #fff' },
   },
+  victoryScatter: {
+    data: { fill: '#fff' },
+  },
+
 }
 
 export default SiloGraphWidget
